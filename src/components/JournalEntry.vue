@@ -4,24 +4,11 @@
     <div id="title-text-area">
       <Editor v-model="userTitle"/>
     </div>
+    <hr>
     <div id="desc-text-area">
       <Editor v-model="userDesc"/>
     </div>
     <button @click="userSubmitEntry()" id="buttonId">ADD</button>
-
-
-
-    <!--    <form @submit.prevent="userSubmitEntry(userTitle, userDesc)">-->
-    <!--      <label for="titleId">-->
-    <!--      </label><br>-->
-    <!--      <textarea v-model="userTitle" name="dreamTitle" id="titleId" cols="60" rows="1" placeholder="Title"></textarea>-->
-    <!--      <label for="descId">-->
-    <!--      </label><br><textarea v-model="userDesc" name="dreamDesc" id="descId" cols="60" rows="15"-->
-    <!--                            placeholder="Write your journal...">-->
-    <!--    </textarea><br>-->
-    <!--      <button type="submit" id="buttonId">ADD</button>-->
-
-    <!--    </form>-->
 
   </div>
 
@@ -42,7 +29,13 @@ export default {
       return firstHalf.replaceAll('</p>', '')
     },
     userSubmitEntry() {
-      this.$emit('addEntry', this.stripHTMLContent(this.userTitle), this.stripHTMLContent(this.userDesc))
+      const title = this.stripHTMLContent(this.userTitle)
+      const description = this.stripHTMLContent(this.userDesc)
+      if (title === '' || description === ''){
+        console.log('Cannot be empty')
+        return
+      }
+      this.$emit('addEntry', title, description )
     }
   },
 
@@ -60,24 +53,26 @@ export default {
   /*border-radius: 5px;*/
   padding: 10px;
   font-size: 36px;
-  color: #E0E0E0;
+  color: #02C3BD;
   font-family: 'Rubik', sans-serif;
+  font-weight: bold;
   background-color: #04052E;
-  margin: 30px;
+  margin-top: 30px;
+  margin-bottom: -20px;
   height: auto;
   resize: vertical;
 }
 
 #desc-text-area {
-  padding: 20px;
+  padding: 10px;
   text-align: left;
-  border: 2px solid #02C3BD;
+  /*border: 2px solid #02C3BD;*/
   font-size: 24px;
   min-height: 500px;
   max-width: 100%;
-  border-radius: 5px;
-  margin: 30px;
+  /*border-radius: 5px;*/
   resize: vertical;
+  color: #E0E0E0;
 }
 
 

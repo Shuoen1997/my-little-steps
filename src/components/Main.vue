@@ -9,10 +9,23 @@
     </div>
     <div class="row">
       <div class="col-4" id="entry-list">
-        <EntryList :entries="journalEntries"></EntryList>
+        <EntryList :entries="journalEntries"
+                   @displayJournalContent="displayJournalContent"
+                   @editModeIsOn="toggleEditMode"></EntryList>
       </div>
       <div class="col-8" id="add-entry">
-        <JournalEntry @addEntry="addEntry"></JournalEntry>
+        <JournalEntry
+            v-if="editMode===true"
+            @addEntry="addEntry"
+            @displayJournalEntry="displayJournalContent">
+        </JournalEntry>
+        <JournalDisplay
+            v-if="editMode===false"
+            :entry="currentDisplayedContent"
+        >
+
+        </JournalDisplay>
+
 
       </div>
 
@@ -26,27 +39,39 @@
 <script>
 import JournalEntry from "@/components/JournalEntry.vue"
 import EntryList from "@/components/EntryList.vue"
+import JournalDisplay from "@/components/JournalDisplay.vue"
+import EntryData from "@/data/EntryData"
+import dayjs from "dayjs"
 
 export default {
   name: 'Main',
-  components: {EntryList, JournalEntry},
+  components: {EntryList, JournalEntry, JournalDisplay},
   created() {
     console.log('Main is created!')
   },
   props: {
-    msg: String,
-    entries: Array
+    msg: String
   },
   data() {
-    return {journalEntries: []}
+    return {journalEntries: [], editMode: false, currentDisplayedContent: undefined}
   },
   methods: {
     addEntry(title, desc) {
-      this.journalEntries.push({title: title, desc: desc})
+      const newEntry = new EntryData(title, desc, dayjs())
+      console.log(newEntry)
+      this.journalEntries.push(newEntry)
       for (const entry of this.journalEntries) {
         console.log('title: ' + entry.title)
-        console.log('description: ' + entry.desc)
+        console.log('description: ' + entry.description)
       }
+      this.displayJournalContent(newEntry)
+    },
+    toggleEditMode(isOn) {
+      this.editMode = isOn
+    },
+    displayJournalContent(entry) {
+      this.toggleEditMode(false)
+      this.currentDisplayedContent = entry
     }
   }
 
@@ -73,8 +98,8 @@ h4 {
   font-size: 24px;
 }
 
-#entry-list, #add-entry{
-  border-style: solid;
+#entry-list, #add-entry {
+  min-height: 800px;
 }
 
 
