@@ -8,10 +8,10 @@
       </h4>
     </div>
     <div class="row">
-      <div class="col" id="entry-list">
+      <div class="col-4" id="entry-list">
         <EntryList :entries="journalEntries"></EntryList>
       </div>
-      <div class="col" id="add-entry">
+      <div class="col-8" id="add-entry">
         <JournalEntry @addEntry="addEntry"></JournalEntry>
 
       </div>
