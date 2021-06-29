@@ -9,16 +9,19 @@
         <div id="entry-item" @click="displayJournalContent(entry)">
           <div class="container">
             <div class="row align-items-start">
-              <div class="col-3">
-                <p>{{formatEntryIndex(entries.indexOf(entry))}}</p>
+              <div class="col-3" id="entry-index">
+                <p>{{ formatEntryIndex(entries.indexOf(entry)) }}</p>
               </div>
               <div class="col-8">
-                <span style="font-weight: bold; text-align: left">{{ entry.title }}</span> <br>
-                <span style="color: #E0E0E0;">{{ truncateDescription(entry.description) }}</span>
+                <span style="font-weight: bold; text-align: left"><ReadOnlyEditor
+                    :value="truncateDescription(entry.title)"/></span>
+<!--                <span style="color: #E0E0E0"><ReadOnlyEditor-->
+<!--                    :value="truncateDescription(entry.description)"/></span>-->
+
               </div>
 
             </div>
-        </div>
+          </div>
 
 
         </div>
@@ -34,8 +37,11 @@
 
 <script>
 
+import ReadOnlyEditor from "@/components/ReadOnlyEditor"
+
 export default {
   name: 'EntryList',
+  components: {ReadOnlyEditor},
   updated() {
     console.log("I am updated!")
   },
@@ -45,23 +51,28 @@ export default {
   computed: {},
   methods: {
     truncateDescription(description) {
-      if (description.length > 30) {
-        return (description.substring(0, 30) + '...')
+      const maxDisplayLength = 25
+      if (description.length > maxDisplayLength) {
+        return (description.substring(0, maxDisplayLength) + '..')
       }
-      return description
+      return this.stripHTMLContent(description)
     },
 
-    formatEntryIndex(theIndex){
+    formatEntryIndex(theIndex) {
       return '#00' + (++theIndex).toString()
     },
 
-    displayJournalContent(entry){
+    displayJournalContent(entry) {
       this.$emit('displayJournalContent', entry)
     },
 
     editModeIsOn() {
       this.$emit('editModeIsOn', true)
-    }
+    },
+    stripHTMLContent(theString) {
+      let firstHalf = theString.replaceAll('<p>', '')
+      return firstHalf.replaceAll('</p>', '')
+    },
 
   }
 
@@ -73,10 +84,29 @@ export default {
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,900;1,800;1,900&display=swap');
 
+#entry-list {
+  overflow-y: scroll;
+  border-right: solid 1px #02C3BD;
+}
+
+#entry-index {
+  /*background-color: #02C3BD;*/
+  color: #02C3BD;
+  font-weight: bold;
+  text-align: center;
+  max-height: 200px;
+}
+
 #entry-item {
   text-align: left;
   font-family: 'Rubik', sans-serif;
-  margin: 30px 5px 30px 10px;
+  margin: 10px 5px 10px 10px;
+  padding: 10px;
+  border-style: inset;
+  border-color: #02C3BD;
+  border-radius: 5px;
+  cursor: pointer;
+  /*background-color: #02031A;*/
 
 }
 
@@ -99,6 +129,7 @@ ul {
   text-align: center;
   color: dimgrey;
   font-style: italic;
+  margin-top: 30px;
   font-family: 'Rubik', sans-serif;
 }
 </style>

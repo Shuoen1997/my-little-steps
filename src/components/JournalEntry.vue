@@ -6,7 +6,7 @@
     </div>
     <hr>
     <div id="desc-text-area">
-      <Editor v-model="userDesc"/>
+      <Editor v-model="userDesc" />
     </div>
     <button @click="userSubmitEntry()" id="buttonId">ADD</button>
 
@@ -25,8 +25,9 @@ export default {
   },
   methods: {
     stripHTMLContent(theString){
-      let firstHalf = theString.replaceAll('<p>', '')
-      return firstHalf.replaceAll('</p>', '')
+      // let firstHalf = theString.replaceAll('<p>', '')
+      // return firstHalf.replaceAll('</p>', '')
+      return theString
     },
     userSubmitEntry() {
       const title = this.stripHTMLContent(this.userTitle)

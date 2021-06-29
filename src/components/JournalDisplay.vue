@@ -11,11 +11,11 @@
     </div>
 
     <div id="title-text-area">
-      {{ entry.title }}
+      <ReadOnlyEditor :value="entry.title"></ReadOnlyEditor>
     </div>
     <hr>
     <div id="desc-text-area">
-      {{ entry.description }}
+      <ReadOnlyEditor :value="entry.description"></ReadOnlyEditor>
     </div>
 
 
@@ -24,9 +24,10 @@
 </template>
 
 <script>
-
+import ReadOnlyEditor from "@/components/ReadOnlyEditor.vue"
 export default {
   name: 'JournalEntry',
+  components: {ReadOnlyEditor},
   props: {
     entry: Object
   },
@@ -51,7 +52,7 @@ export default {
 #date-text {
   font-size: 16px;
   text-align: right;
-  color: dimgrey;
+  color: yellow;
 }
 
 #index-text {
