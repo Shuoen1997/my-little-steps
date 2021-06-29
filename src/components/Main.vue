@@ -20,7 +20,7 @@
             @displayJournalEntry="displayJournalContent">
         </JournalEntry>
         <JournalDisplay
-            v-if="editMode===false"
+            v-if="editMode===false && currentDisplayedContent"
             :entry="currentDisplayedContent"
         >
 
@@ -53,11 +53,13 @@ export default {
     msg: String
   },
   data() {
-    return {journalEntries: [], editMode: false, currentDisplayedContent: undefined}
+    return {journalEntries: [], editMode: false, currentDisplayedContent: null}
   },
   methods: {
     addEntry(title, desc) {
-      const newEntry = new EntryData(title, desc, dayjs())
+      const newEntry = new EntryData(
+          this.journalEntries.length,
+          title, desc, dayjs().format('YYYY/MM/DD HH:mm:ss'))
       console.log(newEntry)
       this.journalEntries.push(newEntry)
       for (const entry of this.journalEntries) {

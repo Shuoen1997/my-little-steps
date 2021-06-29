@@ -1,11 +1,20 @@
 <!--https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea-->
 <template>
   <div class="container">
-    <div id="title-text-area" v-if="entry !== undefined">
+    <div class="row" id="index-and-date">
+      <div class="col" id="index-text">
+        {{ formatEntryIndex(entry.indexId) }}
+      </div>
+      <div class="col" id="date-text">
+        {{ entry.updatedDate }}
+      </div>
+    </div>
+
+    <div id="title-text-area">
       {{ entry.title }}
     </div>
     <hr>
-    <div id="desc-text-area" v-if="entry !== undefined">
+    <div id="desc-text-area">
       {{ entry.description }}
     </div>
 
@@ -20,6 +29,11 @@ export default {
   name: 'JournalEntry',
   props: {
     entry: Object
+  },
+  methods: {
+    formatEntryIndex(theIndex) {
+      return '#00' + (++theIndex).toString()
+    },
   }
 
 
@@ -29,6 +43,21 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
+#index-and-date {
+  padding: 10px;
+  font-weight: bold;
+}
+
+#date-text {
+  font-size: 16px;
+  text-align: right;
+  color: dimgrey;
+}
+
+#index-text {
+  font-size: 24px;
+  text-align: start;
+}
 
 #title-text-area {
   /*border: 2px solid #02C3BD;*/
@@ -40,7 +69,7 @@ export default {
   font-family: 'Rubik', sans-serif;
   font-weight: bold;
   background-color: #04052E;
-  margin-top: 30px;
+  margin-top: -10px;
   margin-bottom: -20px;
   height: auto;
   resize: vertical;
