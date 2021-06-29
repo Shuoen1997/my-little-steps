@@ -1,34 +1,44 @@
 <!--https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea-->
 <template>
-  <div id="main-div">
-
-    <form @submit.prevent="userSubmitEntry(userTitle, userDesc)">
-      <label for="titleId">
-      </label><br>
-      <textarea v-model="userTitle" name="dreamTitle" id="titleId" cols="60" rows="1" placeholder="Title"></textarea>
-      <label for="descId">
-      </label><br><textarea v-model="userDesc" name="dreamDesc" id="descId" cols="60" rows="15"
-                            placeholder="Write your journal...">
-    </textarea><br>
-      <button type="submit" id="buttonId">ADD</button>
-
-    </form>
+  <div class="container">
+    <div id="title-text-area">
+      <Editor v-model="userTitle"/>
+    </div>
+    <hr>
+    <div id="desc-text-area">
+      <Editor v-model="userDesc" />
+    </div>
+    <button @click="userSubmitEntry()" id="buttonId">ADD</button>
 
   </div>
 
 </template>
 
 <script>
+import Editor from "@/components/Editor.vue"
+
 export default {
   name: 'JournalEntry',
+  components: {Editor},
   data() {
-    return { userTitle: '', userDesc: '' }
+    return {userTitle: '', userDesc: ''}
   },
   methods: {
-    userSubmitEntry(title, desc) {
-      this.$emit('addEntry', title, desc)
+    stripHTMLContent(theString){
+      // let firstHalf = theString.replaceAll('<p>', '')
+      // return firstHalf.replaceAll('</p>', '')
+      return theString
+    },
+    userSubmitEntry() {
+      const title = this.stripHTMLContent(this.userTitle)
+      const description = this.stripHTMLContent(this.userDesc)
+      if (title === '' || description === ''){
+        console.log('Cannot be empty')
+        return
+      }
+      this.$emit('addEntry', title, description )
     }
-  }
+  },
 
 
 }
@@ -36,21 +46,38 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-textarea {
-  border: 2px solid #02C3BD;
-  border-radius: 5px;
-  padding: 20px;
-  font-size: 20px;
-  color: #E0E0E0;
-  resize: none;
-  outline: none;
+
+
+#title-text-area {
+  /*border: 2px solid #02C3BD;*/
+  text-align: left;
+  /*border-radius: 5px;*/
+  padding: 10px;
+  font-size: 36px;
+  color: #02C3BD;
   font-family: 'Rubik', sans-serif;
+  font-weight: bold;
   background-color: #04052E;
+  margin-top: 30px;
+  margin-bottom: -20px;
+  height: auto;
+  resize: vertical;
 }
 
-textarea::placeholder {
-  color: #02C3BD;
+#desc-text-area {
+  padding: 10px;
+  text-align: left;
+  /*border: 2px solid #02C3BD;*/
+  font-size: 24px;
+  min-height: 500px;
+  max-width: 100%;
+  /*border-radius: 5px;*/
+  resize: vertical;
+  color: #E0E0E0;
 }
+
+
+
 
 #buttonId {
   border-radius: 5em;

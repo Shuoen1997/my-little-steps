@@ -16,7 +16,9 @@ export default {
 </script>
 
 <style>
-
+.ProseMirror:focus {
+    outline: none;
+}
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
