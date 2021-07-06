@@ -1,16 +1,24 @@
 <!--https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea-->
 <template>
-  <div class="container">
-    <div id="title-text-area">
-      <Editor v-model="userTitle"/>
-    </div>
-    <hr>
-    <div id="desc-text-area">
-      <Editor v-model="userDesc" />
-    </div>
-    <button @click="userSubmitEntry()" id="buttonId">ADD</button>
+  <v-container>
+    <v-col>
+      <v-sheet height="80" elevation="5" rounded>
+        <div id="title-text-area">
+          <Editor id="editor-title" v-model="userTitle" data-placeholder="Title"/>
+        </div>
+      </v-sheet>
+      <v-divider></v-divider>
+      <v-sheet min-height="500" elevation="5">
+        <div id="desc-text-area">
+          <Editor id="editor-desc" v-model="userDesc" data-placeholder="Write something..."/>
+        </div>
+      </v-sheet>
+      <v-divider></v-divider>
+      <v-btn elevation="2" color="green" block outlined @click="userSubmitEntry()" id="button-save-main-step">ADD</v-btn>
+    </v-col>
 
-  </div>
+
+  </v-container>
 
 </template>
 
@@ -24,7 +32,7 @@ export default {
     return {userTitle: '', userDesc: ''}
   },
   methods: {
-    stripHTMLContent(theString){
+    stripHTMLContent(theString) {
       // let firstHalf = theString.replaceAll('<p>', '')
       // return firstHalf.replaceAll('</p>', '')
       return theString
@@ -32,11 +40,11 @@ export default {
     userSubmitEntry() {
       const title = this.stripHTMLContent(this.userTitle)
       const description = this.stripHTMLContent(this.userDesc)
-      if (title === '' || description === ''){
+      if (title === '' || description === '') {
         console.log('Cannot be empty')
         return
       }
-      this.$emit('addEntry', title, description )
+      this.$emit('addEntry', title, description)
     }
   },
 
@@ -49,44 +57,23 @@ export default {
 
 
 #title-text-area {
-  /*border: 2px solid #02C3BD;*/
   text-align: left;
-  /*border-radius: 5px;*/
-  padding: 10px;
+  padding: 12px;
   font-size: 36px;
-  color: #02C3BD;
-  font-family: 'Rubik', sans-serif;
+  /*font-family: 'Rubik', sans-serif;*/
   font-weight: bold;
-  background-color: #04052E;
-  margin-top: 30px;
-  margin-bottom: -20px;
   height: auto;
   resize: vertical;
+  color: #FF96AD;
 }
 
 #desc-text-area {
-  padding: 10px;
+  padding: 12px;
   text-align: left;
-  /*border: 2px solid #02C3BD;*/
   font-size: 24px;
   min-height: 500px;
   max-width: 100%;
-  /*border-radius: 5px;*/
   resize: vertical;
-  color: #E0E0E0;
-}
-
-
-
-
-#buttonId {
-  border-radius: 5em;
-  border-color: #FF96AD;
-  background-color: #04052E;
-  color: #FF96AD;
-  padding: 10px 30px;
-  margin: 30px;
-  font-weight: bold;
 }
 
 

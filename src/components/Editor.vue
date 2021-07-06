@@ -54,12 +54,11 @@ export default {
       onUpdate: () => {
         // HTML
         this.$emit('input', this.editor.getHTML())
-        // console.log(this.editor.getHTML())
+        console.log(this.editor.getHTML())
 
         // JSON
         // this.$emit('input', this.editor.getJSON())
       },
-      autofocus: true,
       placeholder: 'Say something...'
     })
   },
@@ -78,5 +77,14 @@ export default {
     color: #ced4da;
     pointer-events: none;
     height: 0;
+  }
+
+  .ProseMirror p {
+    padding: 10px;
+    font-size: 30px;
+  }
+
+  .ProseMirror:focus {
+    outline: none;
   }
 </style>

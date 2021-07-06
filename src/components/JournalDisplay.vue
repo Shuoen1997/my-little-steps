@@ -1,30 +1,59 @@
 <!--https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea-->
 <template>
-  <div class="container">
-    <div class="row" id="index-and-date">
-      <div class="col" id="index-text">
-        {{ formatEntryIndex(entry.indexId) }}
-      </div>
-      <div class="col" id="date-text">
-        {{ entry.updatedDate }}
-      </div>
-    </div>
+  <!--  <div class="container">-->
+  <!--    <div class="row" id="index-and-date">-->
+  <!--      <div class="col" id="index-text">-->
+  <!--        {{ formatEntryIndex(entry.indexId) }}-->
+  <!--      </div>-->
+  <!--      <div class="col" id="date-text">-->
+  <!--        {{ entry.updatedDate }}-->
+  <!--      </div>-->
+  <!--    </div>-->
 
-    <div id="title-text-area">
-      <ReadOnlyEditor :value="entry.title"></ReadOnlyEditor>
-    </div>
-    <hr>
-    <div id="desc-text-area">
-      <ReadOnlyEditor :value="entry.description"></ReadOnlyEditor>
-    </div>
+  <!--    <div id="title-text-area">-->
+  <!--      <ReadOnlyEditor :value="entry.title"></ReadOnlyEditor>-->
+  <!--    </div>-->
+  <!--    <hr>-->
+  <!--    <div id="desc-text-area">-->
+  <!--      <ReadOnlyEditor :value="entry.description"></ReadOnlyEditor>-->
+  <!--    </div>-->
 
 
-  </div>
+  <!--  </div>-->
+  <v-container>
+    <v-col>
+      <v-row id="index-and-date" justify="space-between">
+        <v-col>
+          {{ formatEntryIndex(entry.indexId) }} >> {{ entry.updatedDate }}
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-sheet height="80" rounded>
+          <div id="title-text-area">
+            <ReadOnlyEditor :value="entry.title" id="readonly-editor-title"></ReadOnlyEditor>
+          </div>
+        </v-sheet>
+      </v-row>
+
+      <v-divider></v-divider>
+      <v-row>
+        <v-sheet min-height="500">
+          <div id="desc-text-area">
+            <ReadOnlyEditor :value="entry.description" id="readonly-editor-desc"></ReadOnlyEditor>
+          </div>
+        </v-sheet>
+      </v-row>
+
+    </v-col>
+
+
+  </v-container>
 
 </template>
 
 <script>
 import ReadOnlyEditor from "@/components/ReadOnlyEditor.vue"
+
 export default {
   name: 'JournalEntry',
   components: {ReadOnlyEditor},
@@ -45,8 +74,9 @@ export default {
 <style scoped>
 
 #index-and-date {
-  padding: 10px;
   font-weight: bold;
+  color: grey;
+  font-size: 16px;
 }
 
 #date-text {
@@ -61,23 +91,17 @@ export default {
 }
 
 #title-text-area {
-  /*border: 2px solid #02C3BD;*/
   text-align: left;
-  /*border-radius: 5px;*/
-  padding: 10px;
+  padding: 12px;
   font-size: 36px;
-  color: #02C3BD;
-  font-family: 'Rubik', sans-serif;
+  /*font-family: 'Rubik', sans-serif;*/
   font-weight: bold;
-  background-color: #04052E;
-  margin-top: -10px;
-  margin-bottom: -20px;
   height: auto;
   resize: vertical;
 }
 
 #desc-text-area {
-  padding: 10px;
+  padding: 12px;
   text-align: left;
   /*border: 2px solid #02C3BD;*/
   font-size: 24px;
@@ -85,7 +109,6 @@ export default {
   max-width: 100%;
   /*border-radius: 5px;*/
   resize: vertical;
-  color: #E0E0E0;
 }
 
 </style>

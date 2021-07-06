@@ -1,19 +1,19 @@
 <!--https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea-->
 <template>
-  <div class="container-fluid">
+  <v-container>
     <div id="title-text">
-      <h1>{{ msg }}</h1>
+      <h1> My Little Steps </h1>
       <h4>
         Of turning dream into reality...
       </h4>
     </div>
-    <div class="row">
-      <div class="col-4" id="entry-list">
+    <v-row>
+      <v-col cols="4" id="entry-list">
         <EntryList :entries="journalEntries"
                    @displayJournalContent="displayJournalContent"
                    @editModeIsOn="toggleEditMode"></EntryList>
-      </div>
-      <div class="col-8" id="add-entry">
+      </v-col>
+      <v-col cols="8" id="add-entry">
         <JournalEntry
             v-if="editMode===true"
             @addEntry="addEntry"
@@ -27,11 +27,11 @@
         </JournalDisplay>
 
 
-      </div>
+      </v-col>
 
-    </div>
+    </v-row>
 
-  </div>
+  </v-container>
 
 
 </template>
@@ -85,20 +85,19 @@ export default {
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,900;1,800;1,900&display=swap');
 
-h1 {
-  font-size: 72px;
-  font-family: 'Rubik', sans-serif;
-  font-weight: bold;
-}
+/*h1 {*/
+/*  font-size: 72px;*/
+/*  font-family: 'Rubik', sans-serif;*/
+/*  font-weight: bold;*/
+/*}*/
 
 
-h4 {
-  color: #FF96AD;
-  font-family: 'Rubik', sans-serif;
-  margin-top: -20px;
-  font-style: italic;
-  font-size: 24px;
-}
+/*h4 {*/
+/*  color: #FF96AD;*/
+/*  font-family: 'Rubik', sans-serif;*/
+/*  font-style: italic;*/
+/*  font-size: 24px;*/
+/*}*/
 
 #entry-list, #add-entry {
   min-height: 800px;

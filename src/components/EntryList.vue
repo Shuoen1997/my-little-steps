@@ -1,36 +1,63 @@
 <!--https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea-->
 <template>
-  <div id="entry-list">
-    <div id="no-entry-text" v-if="entries.length===0">
-      <h3>No entries yet</h3>
-    </div>
-    <ul>
-      <li v-for="entry in entries" :key="entries.indexOf(entry)">
-        <div id="entry-item" @click="displayJournalContent(entry)">
-          <div class="container">
-            <div class="row align-items-start">
-              <div class="col-3" id="entry-index">
-                <p>{{ formatEntryIndex(entries.indexOf(entry)) }}</p>
-              </div>
-              <div class="col-8">
-                <span style="font-weight: bold; text-align: left"><ReadOnlyEditor
-                    :value="truncateDescription(entry.title)"/></span>
-<!--                <span style="color: #E0E0E0"><ReadOnlyEditor-->
-<!--                    :value="truncateDescription(entry.description)"/></span>-->
+  <!--  <div id="entry-list">-->
+  <!--    <div id="no-entry-text" v-if="entries.length===0">-->
+  <!--      <h3>No entries yet</h3>-->
+  <!--    </div>-->
+  <!--    <ul>-->
+  <!--      <li v-for="entry in entries" :key="entries.indexOf(entry)">-->
+  <!--        <div id="entry-item" @click="displayJournalContent(entry)">-->
+  <!--          <div class="container">-->
+  <!--            <div class="row align-items-start">-->
+  <!--              <div class="col-3" id="entry-index">-->
+  <!--                <p>{{ formatEntryIndex(entries.indexOf(entry)) }}</p>-->
+  <!--              </div>-->
+  <!--              <div class="col-8">-->
+  <!--                <span style="font-weight: bold; text-align: left"><ReadOnlyEditor-->
+  <!--                    :value="truncateDescription(entry.title)"/></span>-->
+  <!--&lt;!&ndash;                <span style="color: #E0E0E0"><ReadOnlyEditor&ndash;&gt;-->
+  <!--&lt;!&ndash;                    :value="truncateDescription(entry.description)"/></span>&ndash;&gt;-->
 
-              </div>
+  <!--              </div>-->
 
-            </div>
-          </div>
+  <!--            </div>-->
+  <!--          </div>-->
 
 
-        </div>
+  <!--        </div>-->
 
-        <hr>
-      </li>
-    </ul>
-    <button @click="editModeIsOn()" id="buttonId">NEW MAIN STEP</button>
-  </div>
+  <!--        <hr>-->
+  <!--      </li>-->
+  <!--    </ul>-->
+  <!--    <button @click="editModeIsOn()" id="buttonId">NEW MAIN STEP</button>-->
+  <!--  </div>-->
+  <v-card>
+    <v-list two-line>
+      <!--      <v-subheader>List of Step Zs</v-subheader>-->
+      <v-list-item-group color="blue">
+        <v-list-item v-for="entry in entries" :key="entries.indexOf(entry)" @click="displayJournalContent(entry)">
+          <v-list-item-icon>
+            <v-icon>mdi-star-three-points</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>
+              <ReadOnlyEditor
+                  :value="truncateDescription(entry.title)" id="readonly-editor-title-in-list"/>
+            </v-list-item-title>
+            <v-list-item-subtitle>
+              <ReadOnlyEditor
+                  :value="truncateDescription(entry.description)" id="readonly-editor-desc-in-list" />
+            </v-list-item-subtitle>
+          </v-list-item-content>
+
+
+        </v-list-item>
+        <v-divider></v-divider>
+
+      </v-list-item-group>
+    </v-list>
+    <v-btn id="button-new-main-step" block elevation="2" color="yellow" @click="editModeIsOn()">NEW STEP Z</v-btn>
+  </v-card>
 
 
 </template>
