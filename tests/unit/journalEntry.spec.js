@@ -1,5 +1,5 @@
 // Imports
-import EntryList from '../../components/EntryList'
+import EntryList from '@/components/EntryList'
 import Vuetify from 'vuetify'
 
 // Utilities
