@@ -1,37 +1,43 @@
 <!--https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea-->
 <template>
-  <div id="entry-list">
-    <div id="no-entry-text" v-if="entries.length===0">
-      <h3>No entries yet</h3>
-    </div>
-    <ul>
-      <li v-for="entry in entries" :key="entries.indexOf(entry)">
-        <div id="entry-item" @click="displayJournalContent(entry)">
-          <div class="container">
-            <div class="row align-items-start">
-              <div class="col-3" id="entry-index">
-                <p>{{ formatEntryIndex(entries.indexOf(entry)) }}</p>
-              </div>
-              <div class="col-8">
-                <span style="font-weight: bold; text-align: left"><ReadOnlyEditor
-                    :value="truncateDescription(entry.title)"/></span>
-<!--                <span style="color: #E0E0E0"><ReadOnlyEditor-->
-<!--                    :value="truncateDescription(entry.description)"/></span>-->
+  <div>
+    <v-card elevation="5" v-if="entries.length!==0">
+      <v-list two-line max-height="600" class="overflow-y-auto">
+        <v-list-item-group color="primary">
+          <template v-for="(entry, index) in entries">
+            <v-list-item :key="entries.indexOf(entry)" @click="displayJournalContent(entry)">
+              <v-avatar color="accent"
+              >
+                <div id="bump-value-text-in-list"> {{ entry.bumpValue }}</div>
+              </v-avatar>
+              <!--                <v-list-item-icon>-->
+              <!--                  <v-icon v-text="entry.isPublic ? 'mdi-earth': 'mdi-lock' "></v-icon>-->
+              <!--                </v-list-item-icon>-->
+              <v-list-item-content>
+                <v-list-item-title>
+                  <ReadOnlyEditor
+                      :value="truncateDescription(entry.title)" id="readonly-editor-title-in-list"/>
+                </v-list-item-title>
+                <v-list-item-subtitle>
+                  <ReadOnlyEditor
+                      :value="truncateDescription(entry.description)" id="readonly-editor-desc-in-list"/>
+                </v-list-item-subtitle>
+              </v-list-item-content>
 
-              </div>
 
-            </div>
-          </div>
+            </v-list-item>
+            <v-divider inset v-if="index < entries.length - 1" :key="index"></v-divider>
+          </template>
 
 
-        </div>
+        </v-list-item-group>
+      </v-list>
 
-        <hr>
-      </li>
-    </ul>
-    <button @click="editModeIsOn()" id="buttonId">NEW MAIN STEP</button>
+    </v-card>
+    <v-divider></v-divider>
+    <v-btn color="primary" id="button-new-main-step" block outlined @click="editModeIsOn()">NEW STEP Z</v-btn>
+
   </div>
-
 
 </template>
 
@@ -51,7 +57,7 @@ export default {
   computed: {},
   methods: {
     truncateDescription(description) {
-      const maxDisplayLength = 25
+      const maxDisplayLength = 40
       if (description.length > maxDisplayLength) {
         return (description.substring(0, maxDisplayLength) + '..')
       }
@@ -84,47 +90,6 @@ export default {
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,900;1,800;1,900&display=swap');
 
-#entry-list {
-  overflow-y: scroll;
-  border-right: solid 1px #02C3BD;
-}
-
-#entry-index {
-  /*background-color: #02C3BD;*/
-  color: #02C3BD;
-  font-weight: bold;
-  text-align: center;
-  max-height: 200px;
-}
-
-#entry-item {
-  text-align: left;
-  font-family: 'Rubik', sans-serif;
-  margin: 10px 5px 10px 10px;
-  padding: 10px;
-  border-style: inset;
-  border-color: #02C3BD;
-  border-radius: 5px;
-  cursor: pointer;
-  /*background-color: #02031A;*/
-
-}
-
-#buttonId {
-  border-radius: 5em;
-  border-color: #FF96AD;
-  background-color: #04052E;
-  color: #FF96AD;
-  padding: 10px 30px;
-
-  font-weight: bold;
-
-}
-
-ul {
-  list-style-type: none;
-}
-
 #no-entry-text {
   text-align: center;
   color: dimgrey;
@@ -132,4 +97,19 @@ ul {
   margin-top: 30px;
   font-family: 'Rubik', sans-serif;
 }
+
+#readonly-editor-title-in-list {
+  font-size: 24px;
+  padding-inline-start: 20px;
+  font-weight: bold;
+}
+
+#readonly-editor-desc-in-list {
+  padding-inline-start: 20px;
+}
+
+#bump-value-text-in-list {
+  font-weight: bold;
+}
+
 </style>

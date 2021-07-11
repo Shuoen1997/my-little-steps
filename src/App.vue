@@ -1,29 +1,50 @@
 <template>
-  <div id="app" class="container-fluid">
-    <Main msg="The Little Steps"/>
-  </div>
+  <v-app>
+    <v-app-bar elevation="5"
+               app
+    >
+      <v-toolbar-title>My Little Steps (Of turning dreams into reality) </v-toolbar-title>
+
+      <v-spacer></v-spacer>
+      <v-btn depressed>
+        Home
+      </v-btn>
+      <v-btn depressed>
+        Browse
+      </v-btn>
+      <v-btn depressed>
+        Profile
+      </v-btn>
+
+
+    </v-app-bar>
+
+    <v-main>
+      <Main/>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-import Main from './components/Main.vue'
+// import HelloWorld from './components/HelloWorld';
+import Main from './components/Main'
 
 export default {
   name: 'App',
-  components: {
-    Main
-  }
-}
-</script>
 
+  components: {
+    Main,
+  },
+
+  data: () => ({
+    //
+  }),
+};
+</script>
 <style>
+
 .ProseMirror:focus {
-    outline: none;
+  outline: none;
 }
-#app {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #02C3BD;
-  background-color: #04052E;
-}
+
 </style>

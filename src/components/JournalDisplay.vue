@@ -1,30 +1,59 @@
-<!--https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea-->
 <template>
-  <div class="container">
-    <div class="row" id="index-and-date">
-      <div class="col" id="index-text">
-        {{ formatEntryIndex(entry.indexId) }}
-      </div>
-      <div class="col" id="date-text">
-        {{ entry.updatedDate }}
-      </div>
-    </div>
+  <v-container class="overflow-y-auto" max-height="600">
+    <v-col>
+      <v-row>
+        <v-btn block outlined color="primary"> GO TO SUB STEPS</v-btn>
+      </v-row>
+      <v-row id="index-and-date" justify="space-between">
+        <v-col cols="9">
 
-    <div id="title-text-area">
-      <ReadOnlyEditor :value="entry.title"></ReadOnlyEditor>
-    </div>
-    <hr>
-    <div id="desc-text-area">
-      <ReadOnlyEditor :value="entry.description"></ReadOnlyEditor>
-    </div>
+          {{ formatEntryIndex(entry.indexId) }} | {{ entry.updatedDate }} |
+          <v-icon v-if="entry.isPublic">mdi-earth</v-icon>
+          <v-icon v-if="!entry.isPublic">mdi-lock</v-icon>
+        </v-col>
+        <v-col cols="1">
+          <v-btn icon>
+            <v-icon>mdi-pencil-outline</v-icon>
+          </v-btn>
+
+        </v-col>
+        <v-col cols="1">
+          <v-btn color="accent" icon>
+            <v-icon>mdi-eye</v-icon>
+          </v-btn>
+        </v-col>
+        <v-col cols="1">
+          <v-btn color="yellow" icon>
+            <v-icon>mdi-heart</v-icon>
+          </v-btn>
+        </v-col>
 
 
-  </div>
+      </v-row>
+
+      <v-row>
+        <div id="title-text-area">
+          <ReadOnlyEditor :value="entry.title" id="readonly-editor-title"></ReadOnlyEditor>
+        </div>
+      </v-row>
+
+      <v-divider></v-divider>
+      <v-row>
+        <div id="desc-text-area">
+          <ReadOnlyEditor :value="entry.description" id="readonly-editor-desc"></ReadOnlyEditor>
+        </div>
+      </v-row>
+
+    </v-col>
+
+
+  </v-container>
 
 </template>
 
 <script>
 import ReadOnlyEditor from "@/components/ReadOnlyEditor.vue"
+
 export default {
   name: 'JournalEntry',
   components: {ReadOnlyEditor},
@@ -33,7 +62,7 @@ export default {
   },
   methods: {
     formatEntryIndex(theIndex) {
-      return '#00' + (++theIndex).toString()
+      return 'stepZ#' + (++theIndex).toString()
     },
   }
 
@@ -45,8 +74,9 @@ export default {
 <style scoped>
 
 #index-and-date {
-  padding: 10px;
   font-weight: bold;
+  color: grey;
+  font-size: 16px;
 }
 
 #date-text {
@@ -61,23 +91,17 @@ export default {
 }
 
 #title-text-area {
-  /*border: 2px solid #02C3BD;*/
   text-align: left;
-  /*border-radius: 5px;*/
-  padding: 10px;
+  padding: 12px;
   font-size: 36px;
-  color: #02C3BD;
-  font-family: 'Rubik', sans-serif;
+  /*font-family: 'Rubik', sans-serif;*/
   font-weight: bold;
-  background-color: #04052E;
-  margin-top: -10px;
-  margin-bottom: -20px;
   height: auto;
   resize: vertical;
 }
 
 #desc-text-area {
-  padding: 10px;
+  padding: 12px;
   text-align: left;
   /*border: 2px solid #02C3BD;*/
   font-size: 24px;
@@ -85,7 +109,6 @@ export default {
   max-width: 100%;
   /*border-radius: 5px;*/
   resize: vertical;
-  color: #E0E0E0;
 }
 
 </style>

@@ -5,9 +5,11 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@tiptap/extension-character-count": "^2.0.0-beta.12",
     "@tiptap/extension-placeholder": "^2.0.0-beta.25",
     "@tiptap/starter-kit": "^2.0.0-beta.81",
     "@tiptap/vue-2": "^2.0.0-beta.39",
@@ -16,16 +18,23 @@
     "core-js": "^3.6.5",
     "dayjs": "^1.10.5",
     "vue": "^2.6.11",
+    "vuetify": "^2.4.0",
     "webpack": "^4.46.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-plugin-unit-jest": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
+    "@vue/test-utils": "^1.0.3",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
-    "vue-template-compiler": "^2.6.11"
+    "sass": "~1.32.0",
+    "sass-loader": "^10.1.1",
+    "vue-cli-plugin-vuetify": "~2.4.1",
+    "vue-template-compiler": "^2.6.11",
+    "vuetify-loader": "^1.7.0"
   },
   "eslintConfig": {
     "root": true,
@@ -39,7 +48,18 @@
     "parserOptions": {
       "parser": "babel-eslint"
     },
-    "rules": {}
+    "rules": {},
+    "overrides": [
+      {
+        "files": [
+          "**/__tests__/*.{j,t}s?(x)",
+          "**/tests/unit/**/*.spec.{j,t}s?(x)"
+        ],
+        "env": {
+          "jest": true
+        }
+      }
+    ]
   },
   "browserslist": [
     "> 1%",

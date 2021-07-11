@@ -1,16 +1,37 @@
 <!--https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea-->
 <template>
-  <div class="container">
-    <div id="title-text-area">
-      <Editor v-model="userTitle"/>
-    </div>
-    <hr>
-    <div id="desc-text-area">
-      <Editor v-model="userDesc" />
-    </div>
-    <button @click="userSubmitEntry()" id="buttonId">ADD</button>
+  <v-container>
+    <v-col>
+      <v-row no-gutters justify="space-between">
+        <v-col cols="4">
+          <div id="new-step-z-text">
+            <h4>#NewStepZ!</h4>
+          </div>
+        </v-col>
+        <v-col cols="2">
+          <v-switch
+              v-model="switchIsPublic"
+              inset
+              color="accent"
+              :label="`${switchIsPublic ? 'PUBLIC' : 'PRIVATE'}`"
+          ></v-switch>
+        </v-col>
 
-  </div>
+      </v-row>
+        <div id="title-text-area">
+          <Editor id="editor-title" v-model="entryTitle" :placeholder-value="placeHolderValue.title"/>
+        </div>
+      <v-divider></v-divider>
+        <div id="desc-text-area">
+          <Editor id="editor-desc" v-model="entryContent" :placeholder-value="placeHolderValue.content"/>
+        </div>
+      <v-divider></v-divider>
+      <v-btn color="primary" block outlined @click="userSubmitEntry()" :disabled="isContentEmpty()" id="button-save-main-step">ADD
+      </v-btn>
+    </v-col>
+
+
+  </v-container>
 
 </template>
 
@@ -21,22 +42,21 @@ export default {
   name: 'JournalEntry',
   components: {Editor},
   data() {
-    return {userTitle: '', userDesc: ''}
+    return {
+      entryTitle: '',
+      entryContent: '',
+      switchIsPublic: true,
+      placeHolderValue: {
+        title: 'Title your new step Z',
+        content: '...and write something about it :)'
+      }}
   },
   methods: {
-    stripHTMLContent(theString){
-      // let firstHalf = theString.replaceAll('<p>', '')
-      // return firstHalf.replaceAll('</p>', '')
-      return theString
-    },
     userSubmitEntry() {
-      const title = this.stripHTMLContent(this.userTitle)
-      const description = this.stripHTMLContent(this.userDesc)
-      if (title === '' || description === ''){
-        console.log('Cannot be empty')
-        return
-      }
-      this.$emit('addEntry', title, description )
+      this.$emit('addEntry', this.entryTitle, this.entryContent, this.switchIsPublic)
+    },
+    isContentEmpty(){
+      return this.entryTitle === '' || this.entryContent === ''
     }
   },
 
@@ -47,46 +67,29 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
+#new-step-z-text {
+  color: #4DB6AC;
+  font-size: 8px;
+  margin-top: 16px;
+}
 
 #title-text-area {
-  /*border: 2px solid #02C3BD;*/
   text-align: left;
-  /*border-radius: 5px;*/
-  padding: 10px;
+  padding: 12px;
   font-size: 36px;
-  color: #02C3BD;
-  font-family: 'Rubik', sans-serif;
+  /*font-family: 'Rubik', sans-serif;*/
   font-weight: bold;
-  background-color: #04052E;
-  margin-top: 30px;
-  margin-bottom: -20px;
   height: auto;
   resize: vertical;
 }
 
 #desc-text-area {
-  padding: 10px;
+  padding: 12px;
   text-align: left;
-  /*border: 2px solid #02C3BD;*/
   font-size: 24px;
   min-height: 500px;
   max-width: 100%;
-  /*border-radius: 5px;*/
   resize: vertical;
-  color: #E0E0E0;
-}
-
-
-
-
-#buttonId {
-  border-radius: 5em;
-  border-color: #FF96AD;
-  background-color: #04052E;
-  color: #FF96AD;
-  padding: 10px 30px;
-  margin: 30px;
-  font-weight: bold;
 }
 
 
