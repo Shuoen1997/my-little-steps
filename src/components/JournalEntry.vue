@@ -2,6 +2,23 @@
 <template>
   <v-container>
     <v-col>
+      <v-row no-gutters justify="space-between">
+        <v-col cols="4">
+          <div id="new-step-z-text" elevation="2">
+            <h4>NEW STEP Z</h4>
+          </div>
+        </v-col>
+        <v-col cols="2">
+          <v-switch
+              v-model="switchIsPublic"
+              inset
+              color="orange darken-3"
+              :label="`${switchIsPublic ? 'PUBLIC' : 'PRIVATE'}`"
+          ></v-switch>
+        </v-col>
+
+      </v-row>
+
       <v-sheet height="80" elevation="5" rounded>
         <div id="title-text-area">
           <Editor id="editor-title" v-model="userTitle" data-placeholder="Title"/>
@@ -14,7 +31,8 @@
         </div>
       </v-sheet>
       <v-divider></v-divider>
-      <v-btn elevation="2" color="green" block outlined @click="userSubmitEntry()" id="button-save-main-step">ADD</v-btn>
+      <v-btn elevation="2" color="green" block outlined @click="userSubmitEntry()" :disabled="isContentEmpty()" id="button-save-main-step">ADD
+      </v-btn>
     </v-col>
 
 
@@ -29,7 +47,7 @@ export default {
   name: 'JournalEntry',
   components: {Editor},
   data() {
-    return {userTitle: '', userDesc: ''}
+    return {userTitle: '', userDesc: '', switchIsPublic: true}
   },
   methods: {
     stripHTMLContent(theString) {
@@ -40,11 +58,16 @@ export default {
     userSubmitEntry() {
       const title = this.stripHTMLContent(this.userTitle)
       const description = this.stripHTMLContent(this.userDesc)
-      if (title === '' || description === '') {
+
+      this.$emit('addEntry', title, description, this.switchIsPublic)
+    },
+    isContentEmpty(){
+      if (this.userTitle === '' || this.userDesc === '') {
         console.log('Cannot be empty')
-        return
+        return true
       }
-      this.$emit('addEntry', title, description)
+      return false
+
     }
   },
 
@@ -55,6 +78,11 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
+#new-step-z-text {
+  color: dimgrey;
+  font-size: 8px;
+  margin-top: 16px;
+}
 
 #title-text-area {
   text-align: left;
@@ -64,7 +92,7 @@ export default {
   font-weight: bold;
   height: auto;
   resize: vertical;
-  color: #FF96AD;
+  color: dimgrey;
 }
 
 #desc-text-area {
@@ -74,6 +102,8 @@ export default {
   min-height: 500px;
   max-width: 100%;
   resize: vertical;
+  color: dimgrey;
+  font-weight: bold;
 }
 
 

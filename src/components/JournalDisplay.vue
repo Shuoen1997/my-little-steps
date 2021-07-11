@@ -23,9 +23,14 @@
   <v-container>
     <v-col>
       <v-row id="index-and-date" justify="space-between">
-        <v-col>
-          {{ formatEntryIndex(entry.indexId) }} >> {{ entry.updatedDate }}
+        <v-col cols="11">
+
+          {{ formatEntryIndex(entry.indexId) }} | {{ entry.updatedDate }} |
+          <v-icon v-if="entry.isPublic">mdi-earth</v-icon>
+          <v-icon v-if="!entry.isPublic">mdi-lock</v-icon>
         </v-col>
+
+
       </v-row>
       <v-row>
         <v-sheet height="80" rounded>

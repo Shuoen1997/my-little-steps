@@ -56,10 +56,10 @@ export default {
     return {journalEntries: [], editMode: false, currentDisplayedContent: null}
   },
   methods: {
-    addEntry(title, desc) {
+    addEntry(title, desc, isPublic) {
       const newEntry = new EntryData(
           this.journalEntries.length,
-          title, desc, dayjs().format('YYYY/MM/DD HH:mm:ss'))
+          title, desc, dayjs().format('YYYY/MM/DD HH:mm:ss'), isPublic)
       console.log(newEntry)
       this.journalEntries.push(newEntry)
       for (const entry of this.journalEntries) {
