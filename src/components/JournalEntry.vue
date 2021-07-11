@@ -18,18 +18,13 @@
         </v-col>
 
       </v-row>
-
-<!--      <v-sheet height="80" elevation="5" rounded>-->
         <div id="title-text-area">
-          <Editor id="editor-title" v-model="userTitle" :placeholder-value="placeHolderValue.title"/>
+          <Editor id="editor-title" v-model="entryTitle" :placeholder-value="placeHolderValue.title"/>
         </div>
-<!--      </v-sheet>-->
       <v-divider></v-divider>
-<!--      <v-sheet min-height="500" elevation="5">-->
         <div id="desc-text-area">
-          <Editor id="editor-desc" v-model="userDesc" :placeholder-value="placeHolderValue.content"/>
+          <Editor id="editor-desc" v-model="entryContent" :placeholder-value="placeHolderValue.content"/>
         </div>
-<!--      </v-sheet>-->
       <v-divider></v-divider>
       <v-btn color="primary" block outlined @click="userSubmitEntry()" :disabled="isContentEmpty()" id="button-save-main-step">ADD
       </v-btn>
@@ -48,8 +43,8 @@ export default {
   components: {Editor},
   data() {
     return {
-      userTitle: '',
-      userDesc: '',
+      entryTitle: '',
+      entryContent: '',
       switchIsPublic: true,
       placeHolderValue: {
         title: 'Title your new step Z',
@@ -57,24 +52,11 @@ export default {
       }}
   },
   methods: {
-    stripHTMLContent(theString) {
-      // let firstHalf = theString.replaceAll('<p>', '')
-      // return firstHalf.replaceAll('</p>', '')
-      return theString
-    },
     userSubmitEntry() {
-      const title = this.stripHTMLContent(this.userTitle)
-      const description = this.stripHTMLContent(this.userDesc)
-
-      this.$emit('addEntry', title, description, this.switchIsPublic)
+      this.$emit('addEntry', this.entryTitle, this.entryContent, this.switchIsPublic)
     },
     isContentEmpty(){
-      if (this.userTitle === '' || this.userDesc === '') {
-        console.log('Cannot be empty')
-        return true
-      }
-      return false
-
+      return this.entryTitle === '' || this.entryContent === ''
     }
   },
 

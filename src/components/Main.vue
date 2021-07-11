@@ -56,10 +56,13 @@ export default {
     return {journalEntries: [], editMode: false, currentDisplayedContent: null}
   },
   methods: {
-    addEntry(title, desc, isPublic) {
+    addEntry(title, description, isPublic) {
       const newEntry = new EntryData(
           this.journalEntries.length,
-          title, desc, dayjs().format('YYYY/MM/DD HH:mm:ss'), isPublic)
+          title,
+          description,
+          dayjs().format('YYYY/MM/DD HH:mm:ss'),
+          isPublic)
       console.log(newEntry)
       this.journalEntries.push(newEntry)
       for (const entry of this.journalEntries) {
@@ -84,20 +87,6 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,900;1,800;1,900&display=swap');
-
-/*h1 {*/
-/*  font-size: 72px;*/
-/*  font-family: 'Rubik', sans-serif;*/
-/*  font-weight: bold;*/
-/*}*/
-
-
-/*h4 {*/
-/*  color: #FF96AD;*/
-/*  font-family: 'Rubik', sans-serif;*/
-/*  font-style: italic;*/
-/*  font-size: 24px;*/
-/*}*/
 
 #entry-list, #add-entry {
   min-height: 800px;

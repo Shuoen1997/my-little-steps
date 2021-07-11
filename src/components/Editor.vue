@@ -9,7 +9,7 @@
 <script>
 import {Editor, EditorContent} from '@tiptap/vue-2'
 import Placeholder from '@tiptap/extension-placeholder'
-import CharacterCount from '@tiptap/extension-character-count'
+// import CharacterCount from '@tiptap/extension-character-count'
 import StarterKit from '@tiptap/starter-kit'
 
 export default {
@@ -28,7 +28,7 @@ export default {
 
   data() {
     return {
-      editor: null, limit: 60
+      editor: null
     }
   },
 
@@ -55,9 +55,9 @@ export default {
         Placeholder.configure({
           placeholder: this.placeholderValue
         }),
-        CharacterCount.configure({
-          limit: this.limit,
-        }),
+        // CharacterCount.configure({
+        //   limit: this.limit,
+        // }),
       ],
       content: this.value,
       onUpdate: () => {

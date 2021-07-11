@@ -1,16 +1,36 @@
 <template>
-  <v-container>
+  <v-container class="overflow-y-auto" max-height="600">
     <v-col>
+      <v-row>
+        <v-btn block outlined color="primary"> GO TO SUB STEPS</v-btn>
+      </v-row>
       <v-row id="index-and-date" justify="space-between">
-        <v-col cols="11">
+        <v-col cols="9">
 
           {{ formatEntryIndex(entry.indexId) }} | {{ entry.updatedDate }} |
           <v-icon v-if="entry.isPublic">mdi-earth</v-icon>
           <v-icon v-if="!entry.isPublic">mdi-lock</v-icon>
         </v-col>
+        <v-col cols="1">
+          <v-btn icon>
+            <v-icon>mdi-pencil-outline</v-icon>
+          </v-btn>
+
+        </v-col>
+        <v-col cols="1">
+          <v-btn color="accent" icon>
+            <v-icon>mdi-eye</v-icon>
+          </v-btn>
+        </v-col>
+        <v-col cols="1">
+          <v-btn color="yellow" icon>
+            <v-icon>mdi-heart</v-icon>
+          </v-btn>
+        </v-col>
 
 
       </v-row>
+
       <v-row>
         <div id="title-text-area">
           <ReadOnlyEditor :value="entry.title" id="readonly-editor-title"></ReadOnlyEditor>
@@ -42,7 +62,7 @@ export default {
   },
   methods: {
     formatEntryIndex(theIndex) {
-      return '#00' + (++theIndex).toString()
+      return 'stepZ#' + (++theIndex).toString()
     },
   }
 
