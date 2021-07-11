@@ -17,5 +17,8 @@
         "codeceptjs": "^3.0.7",
         "eslint": "^7.30.0",
         "playwright": "^1.12.3"
+    },
+    "dependencies": {
+        "@tiptap/extension-character-count": "^2.0.0-beta.12"
     }
 }

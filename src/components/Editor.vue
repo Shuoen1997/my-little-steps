@@ -1,13 +1,16 @@
 <template>
-  <editor-content :editor="editor" />
+  <div>
+    <editor-content :editor="editor"/>
+  </div>
+
+
 </template>
 
 <script>
-import { Editor, EditorContent } from '@tiptap/vue-2'
-import StarterKit from '@tiptap/starter-kit'
+import {Editor, EditorContent} from '@tiptap/vue-2'
 import Placeholder from '@tiptap/extension-placeholder'
-// import Paragraph from '@tiptap/extension-paragraph'
-// import Text from '@tiptap/extension-text'
+import CharacterCount from '@tiptap/extension-character-count'
+import StarterKit from '@tiptap/starter-kit'
 
 export default {
   components: {
@@ -20,11 +23,12 @@ export default {
       type: String,
       default: '',
     },
+    placeholderValue: String
   },
 
   data() {
     return {
-      editor: null,
+      editor: null, limit: 60
     }
   },
 
@@ -48,7 +52,12 @@ export default {
     this.editor = new Editor({
       extensions: [
         StarterKit,
-        Placeholder,
+        Placeholder.configure({
+          placeholder: this.placeholderValue
+        }),
+        CharacterCount.configure({
+          limit: this.limit,
+        }),
       ],
       content: this.value,
       onUpdate: () => {
@@ -71,20 +80,12 @@ export default {
 
 
 <style scoped>
-  .ProseMirror p.is-editor-empty:first-child::before {
-    content: attr(data-placeholder);
-    float: left;
-    color: #ced4da;
-    pointer-events: none;
-    height: 0;
-  }
-
-  .ProseMirror p {
-    padding: 10px;
-    font-size: 30px;
-  }
-
-  .ProseMirror:focus {
-    outline: none;
-  }
+/* This one saved me: https://stackoverflow.com/questions/48032006/how-do-i-use-deep-or-or-v-deep-in-vue-js*/
+>>> .ProseMirror p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  color: #ced4da;
+  pointer-events: none;
+  height: 0;
+}
 </style>

@@ -4,34 +4,34 @@
     <v-col>
       <v-row no-gutters justify="space-between">
         <v-col cols="4">
-          <div id="new-step-z-text" elevation="2">
-            <h4>NEW STEP Z</h4>
+          <div id="new-step-z-text">
+            <h4>#NewStepZ!</h4>
           </div>
         </v-col>
         <v-col cols="2">
           <v-switch
               v-model="switchIsPublic"
               inset
-              color="orange darken-3"
+              color="accent"
               :label="`${switchIsPublic ? 'PUBLIC' : 'PRIVATE'}`"
           ></v-switch>
         </v-col>
 
       </v-row>
 
-      <v-sheet height="80" elevation="5" rounded>
+<!--      <v-sheet height="80" elevation="5" rounded>-->
         <div id="title-text-area">
-          <Editor id="editor-title" v-model="userTitle" data-placeholder="Title"/>
+          <Editor id="editor-title" v-model="userTitle" :placeholder-value="placeHolderValue.title"/>
         </div>
-      </v-sheet>
+<!--      </v-sheet>-->
       <v-divider></v-divider>
-      <v-sheet min-height="500" elevation="5">
+<!--      <v-sheet min-height="500" elevation="5">-->
         <div id="desc-text-area">
-          <Editor id="editor-desc" v-model="userDesc" data-placeholder="Write something..."/>
+          <Editor id="editor-desc" v-model="userDesc" :placeholder-value="placeHolderValue.content"/>
         </div>
-      </v-sheet>
+<!--      </v-sheet>-->
       <v-divider></v-divider>
-      <v-btn elevation="2" color="green" block outlined @click="userSubmitEntry()" :disabled="isContentEmpty()" id="button-save-main-step">ADD
+      <v-btn color="primary" block outlined @click="userSubmitEntry()" :disabled="isContentEmpty()" id="button-save-main-step">ADD
       </v-btn>
     </v-col>
 
@@ -47,7 +47,14 @@ export default {
   name: 'JournalEntry',
   components: {Editor},
   data() {
-    return {userTitle: '', userDesc: '', switchIsPublic: true}
+    return {
+      userTitle: '',
+      userDesc: '',
+      switchIsPublic: true,
+      placeHolderValue: {
+        title: 'Title your new step Z',
+        content: '...and write something about it :)'
+      }}
   },
   methods: {
     stripHTMLContent(theString) {
@@ -79,7 +86,7 @@ export default {
 <style scoped>
 
 #new-step-z-text {
-  color: dimgrey;
+  color: #4DB6AC;
   font-size: 8px;
   margin-top: 16px;
 }
@@ -92,7 +99,6 @@ export default {
   font-weight: bold;
   height: auto;
   resize: vertical;
-  color: dimgrey;
 }
 
 #desc-text-area {
@@ -102,8 +108,6 @@ export default {
   min-height: 500px;
   max-width: 100%;
   resize: vertical;
-  color: dimgrey;
-  font-weight: bold;
 }
 
 

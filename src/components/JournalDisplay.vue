@@ -1,25 +1,4 @@
-<!--https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea-->
 <template>
-  <!--  <div class="container">-->
-  <!--    <div class="row" id="index-and-date">-->
-  <!--      <div class="col" id="index-text">-->
-  <!--        {{ formatEntryIndex(entry.indexId) }}-->
-  <!--      </div>-->
-  <!--      <div class="col" id="date-text">-->
-  <!--        {{ entry.updatedDate }}-->
-  <!--      </div>-->
-  <!--    </div>-->
-
-  <!--    <div id="title-text-area">-->
-  <!--      <ReadOnlyEditor :value="entry.title"></ReadOnlyEditor>-->
-  <!--    </div>-->
-  <!--    <hr>-->
-  <!--    <div id="desc-text-area">-->
-  <!--      <ReadOnlyEditor :value="entry.description"></ReadOnlyEditor>-->
-  <!--    </div>-->
-
-
-  <!--  </div>-->
   <v-container>
     <v-col>
       <v-row id="index-and-date" justify="space-between">
@@ -33,20 +12,16 @@
 
       </v-row>
       <v-row>
-        <v-sheet height="80" rounded>
-          <div id="title-text-area">
-            <ReadOnlyEditor :value="entry.title" id="readonly-editor-title"></ReadOnlyEditor>
-          </div>
-        </v-sheet>
+        <div id="title-text-area">
+          <ReadOnlyEditor :value="entry.title" id="readonly-editor-title"></ReadOnlyEditor>
+        </div>
       </v-row>
 
       <v-divider></v-divider>
       <v-row>
-        <v-sheet min-height="500">
-          <div id="desc-text-area">
-            <ReadOnlyEditor :value="entry.description" id="readonly-editor-desc"></ReadOnlyEditor>
-          </div>
-        </v-sheet>
+        <div id="desc-text-area">
+          <ReadOnlyEditor :value="entry.description" id="readonly-editor-desc"></ReadOnlyEditor>
+        </div>
       </v-row>
 
     </v-col>
